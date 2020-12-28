@@ -1,16 +1,78 @@
 const express =require('express');
 const router = express.Router();
-const All = require('../models/All')
+const All = require('../models/All');
+const {ensureAuthenticated} = require('../config/auth') 
 
 router.get('/', async (req,res) => {
     try {
-        const allWorld = {"updated":1608305355317,"cases":75477213,"todayCases":206425,"deaths":1672116,"todayDeaths":4520,"recovered":53022436,"todayRecovered":179925,"active":20782661,"critical":107226,"casesPerOneMillion":9683,"deathsPerOneMillion":214.5,"tests":1134598291,"testsPerOneMillion":145567.61,"population":7794304541,"oneCasePerPeople":0,"oneDeathPerPeople":0,"oneTestPerPeople":0,"activePerOneMillion":2666.39,"recoveredPerOneMillion":6802.72,"criticalPerOneMillion":13.76,"affectedCountries":220};
-        res.json(allWorld); 
+        const allWorld = await All.find();
+        res.json(allWorld[0]); 
     } catch(err) {
-        res.json({message: err});
+        res.json({messag: err});
     }
-    
 })
 
+router.post('/', async (req,res) => {
+    const all = new All({
+        updated : req.body.updated,
+cases : req.body.cases,
+todayCases : req.body.todayCases,
+deaths : req.body.deaths,
+todayDeaths :req.body.todayDeaths,
+recovered : req.body.recovered,
+todayRecovered :req.body.todayRecovered,
+active : req.body.active,
+critical : req.body.critical,
+casesPerOneMillion :req.body.casesPerOneMillion,
+deathsPerOneMillion : req.body.deathsPerOneMillion,
+tests :req.body.deaths,
+testsPerOneMillion :req.body.deaths,
+population :req.body.deaths,
+oneCasePerPeople :req.body.deaths,
+oneDeathPerPeople :req.body.deaths,
+oneTestPerPeople :req.body.deaths,
+activePerOneMillion :req.body.deaths,
+recoveredPerOneMillion :req.body.deaths,
+criticalPerOneMillion :req.body.deaths,
+affectedCountries : req.body.deaths,})
+    try {
+        const savedAll = await all.save();
+        res.json(savedAll)
+    } catch (err) {
+        res.json({message :err})
+    }
 
+})
+
+router.get('/:allId',async (req,res) => {
+    try {
+        const all = await All.findById(req.params.allId);
+        res.render('all/show',{all: all});
+    } catch(error) {
+        console.log(error);
+    }
+})
+
+router.get('/edit/:id',ensureAuthenticated, async (req, res) => {
+    const all = await All.findById(req.params.id)
+    res.render('All/edit', { all: all })
+  })
+
+
+router.patch('/:allId', async (req,res) => {
+    try {
+        const updatedAll = await All.updateOne(
+            {_id:req.params.allId},
+            {$set : {
+        cases: req.body.cases,
+        deaths: req.body.deaths,
+        recovered: req.body.recovered,
+        tests: req.body.tests,
+            }}
+            );
+            res.redirect(`/`);
+    } catch (err) {
+        res.json({message:err})
+    }
+})
 module.exports = router;

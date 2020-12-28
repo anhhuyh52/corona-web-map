@@ -1,11 +1,12 @@
 const express =require('express');
 const router = express.Router();
 const Country = require('../models/Country')
+const {ensureAuthenticated} = require('../config/auth') 
 
 router.get('/', async (req,res) => {
     try {
-        const coutries = await Country.find();
-        res.json(coutries); 
+        const countries = await Country.find();
+        res.json(countries); 
     } catch(err) {
         res.json({message: err});
     }
@@ -14,9 +15,6 @@ router.get('/', async (req,res) => {
 
 router.post('/', async (req,res) => {
     const country = new Country({
-        updated: req.body.updated,
-        country: req.body.country,
-        countryInfo:req.body.countryInfo,
         cases: req.body.cases,
         todayCases: req.body.todayCases,
         deaths: req.body.deaths,
@@ -52,11 +50,12 @@ router.post('/', async (req,res) => {
 router.get('/:countryId',async (req,res) => {
     try {
         const country = await Country.findById(req.params.countryId);
-        res.json(country);
+        res.render('countries/show',{country: country});
     } catch(error) {
-        res.json({message: err});
+        console.log(error);
     }
 })
+
 
 //delete
 router.delete('/:countryId',async (req,res) => {
@@ -69,37 +68,24 @@ router.delete('/:countryId',async (req,res) => {
 })
 
 //update
-router.patch(':/postId', async (req,res) => {
+router.get('/edit/:id', ensureAuthenticated,async (req, res) => {
+    const country = await Country.findById(req.params.id)
+    res.render('countries/edit', { country: country })
+  })
+
+
+  router.patch('/:countryId', async (req,res) => {
     try {
         const updatedCountry = await Country.updateOne(
             {_id:req.params.countryId},
             {$set : {
-                updated: req.body.updated,
-        country: req.body.country,
-        countryInfo:req.body.countryInfo,
         cases: req.body.cases,
-        todayCases: req.body.todayCases,
         deaths: req.body.deaths,
-        todayDeaths: req.body.todayDeaths,
         recovered: req.body.recovered,
-        todayRecovered: req.body.todayRecovered,
-        active: req.body.active,
-        critical: req.body.critical,
-        casesPerOneMillion: req.body.casesPerOneMillion,
-        deathsPerOneMillion: req.body.deathsPerOneMillion,
         tests: req.body.tests,
-        testsPerOneMillion: req.body.testsPerOneMillion,
-        population: req.body.population,
-        continent: req.body.continent,
-        oneCasePerPeople: req.body.oneCasePerPeople,
-        oneDeathPerPeople: req.body.oneDeathPerPeople,
-        oneTestPerPeople: req.body.oneTestPerPeople,
-        activePerOneMillion: req.body.activePerOneMillion,
-        recoveredPerOneMillion: req.body.recoveredPerOneMillion,
-        criticalPerOneMillion: req.body.criticalPerOneMillion
             }}
             );
-            res.json(updatedCountry);
+            res.redirect(`/`);
     } catch (err) {
         res.json({message:err})
     }

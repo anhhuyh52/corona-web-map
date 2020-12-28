@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <title>Admin Page</title>
+</head>
+<body>
+  <h1>Register</h1>
+<%- include ('./partials/messages') %>
+<form action="/users/register" method="POST">
+<div>
+    <label for="name" class="form-label  m-md-2">Name</label>
+    <input
+    class="form-control  m-md-2"
+    style="width: 30%;"
+      type="name"
+      name="name"
+      placeholder="Enter Name"
+      value="<%= typeof name != 'undefined' ? name : '' %>"
+    />
+  
+</div>
+<div>
+    <label for="email" class="form-label  m-md-2">Email</label>
+    <input
+    style="width: 30%;"
+    class="form-control  m-md-2"
+      type="email"
+      name="email"
+      placeholder="Enter Email"
+      value="<%= typeof email != 'undefined' ? email : '' %>"
+    />
+  </div>
+  <div >
+    <label for="password" class="form-label  m-md-2">Password</label>
+    <input
+    style="width: 30%;"
+    class="form-control  m-md-2"
+      type="password"
+      name="password"
+      placeholder="Create Password"
+      value="<%= typeof password != 'undefined' ? password : '' %>"
+    />
+  </div>
+  <div >
+    <label for="password2" class="form-label  m-md-2">Confirm Password</label>
+    <input
+    style="width: 30%;"
+    class="form-control  m-md-2"
+      type="password"
+      name="password2"
+      placeholder="Confirm Password"
+      value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary m-md-2">
+    Register
+  </button>
+</form>
+<p class="m-md-2">Have An Account? <a href="/users/login" >Login</a></p>
+</body>
+</html>

@@ -12,6 +12,9 @@ const Header = () => {
           <li>
             <a >Gatsby Starter Leaflet</a>
           </li>
+          <l1>
+            <button><a href ="http://localhost:3000/">Admin</a></button>
+          </l1>
         </ul>
       </Container>
     </header>
