@@ -1,16 +1,16 @@
 <% if(typeof errors!= 'undefined') { %>
 <%    errors.forEach(function(error){ %>
-        <p class="alert alert-danger"> <%= error.msg %></p>
+        <p class="alert alert-danger" style="width:20% ; margin-left:5%"> <%= error.msg %></p>
 <%    })        %>
 <% } %>
 
 <% if(success_msg!= '') { %>
-        <p class="alert alert-success"><%=success_msg %> </p>
+        <p class="alert alert-success" style="width:20% ; margin-left:5%"><%=success_msg %> </p>
       <% } %>
 
 <% if(error_msg != '') { %>
-      <p class="alert alert-danger"><%= error_msg %></p> 
+      <p class="alert alert-danger" style="width:20% ; margin-left:5%"><%= error_msg %></p> 
       <% } %> 
 <% if(error != '') { %>
-       <p class="alert alert-danger"><%= error %> </p>
+       <p class="alert alert-danger" style="width:20% ; margin-left:5%"><%= error %> </p>
       <% } %> 

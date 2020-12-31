@@ -5,20 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <title>Admin Page</title>
+    <script src="https://kit.fontawesome.com/6161a2d888.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
         <h1 class="mb-4">Information about Covid-19</h1>
-        <a href="/all/5fe71b40c3961d39ecc69b53" class="btn btn-secondary">All</a>
+        <button><a href="/users/logout">Logout</a></button>
+        <a href="/all/5fe71b40c3961d39ecc69b53" class="btn btn-secondary" style="display: block; width: 10%;margin-top:10px">All</a>
+        <ul class="list-group list-group-horizontal" style="margin-top:10px">
+            <li class="list-group-item"><a href="#A">A</a></li>
+            <li class="list-group-item"><a href="#B" >B</a></li>
+            <li class="list-group-item"><a href="#C" >C</a></li>
+            <li class="list-group-item"><a href="#D" >D</a></li>
+            <li class="list-group-item"><a href="#E" >E</a></li>
+            <li class="list-group-item"><a href="#F" >F</a></li>
+            <li class="list-group-item"><a href="#G" >G</a></li>
+            <li class="list-group-item"><a href="#H" >H</a></li>
+            <li class="list-group-item"><a href="#I" >I</a></li>
+            <li class="list-group-item"><a href="#J" >J</a></li>
+            <li class="list-group-item"><a href="#K" >K</a></li>
+            <li class="list-group-item"><a href="#L" >L</a></li>
+            <li class="list-group-item"><a href="#M" >M</a></li>
+            <li class="list-group-item"><a href="#N" >N</a></li>
+            <li class="list-group-item"><a href="#O" >O</a></li>
+            <li class="list-group-item"><a href="#P" >P</a></li>
+            <li class="list-group-item"><a href="#Q" >Q</a></li>
+            <li class="list-group-item"><a href="#R" >R</a></li>
+            <li class="list-group-item"><a href="#S" >S</a></li>
+            <li class="list-group-item"><a href="#T" >T</a></li>
+            <li class="list-group-item"><a href="#U" >U</a></li>
+            <li class="list-group-item"><a href="#V" >V</a></li>
+            <li class="list-group-item"><a href="#W" >W</a></li>
+            <li class="list-group-item"><a href="#X" >X</a></li>
+            <li class="list-group-item"><a href="#Y" >Y</a></li>
+            <li class="list-group-item"><a href="#Z" >Z</a></li>
+        </ul>
+        <div style="position: fixed; top:70% ;right: 10%;font-size: 50px;"><a href="#"><i class="fas fa-arrow-up"></i></a></div>
         <% countries.forEach(country => { %>
             <div class="card mt-4">
                 <div class="card-body">
-                    <h3 class="card-title"><%= country.country %></h3>
+                    <h3 class="card-title" id = <%= country.country[0] %>><%= country.country %></h3>
                     <div class="card-text mb-2">Cases: <%= country.cases %></div>
                     <div class="card-text mb-2">Deaths: <%= country.deaths %></div>
                     <div class="card-text mb-2">Recovered: <%= country.recovered %></div>
-                    <a href="countries/<%= country.id %>" class="btn btn-primary">Read More</a>
-                    <a href="countries/edit/<%= country.id %>" class="btn btn-info">Edit</a>
+                    <a href="/countries/<%= country.id %>" class="btn btn-primary">Read More</a>
+                    <a href="/countries/edit/<%= country.id %>" class="btn btn-danger">Edit</a>
+                    <a href="/delete/<%= country.id %>" class="btn btn-danger">Delete</a>
                 </div>
             </div>
        <% }) %>

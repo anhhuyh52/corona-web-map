@@ -8,6 +8,8 @@ const methodOverride = require('method-override')
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require("passport");
+const ensureAuthenticated = require('./config/auth')
+
 
 require('dotenv/config')
 require('./config/passport')(passport)
@@ -33,9 +35,8 @@ app.use((req,res,next)=> {
     })
     
 //Routes
-app.get('/', async (req,res) => {
-    const countries = await Country.find();
-    res.render('countries/index',{countries : countries})
+app.get('/',async (req,res) => {
+    res.redirect("/users/login")
 })
 //Import routes
 

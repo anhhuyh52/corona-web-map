@@ -13,6 +13,11 @@ router.get('/', async (req,res) => {
     
 })
 
+router.get('/list' ,async (req,res) => {
+    const countries = await Country.find();
+    res.render('countries/index',{countries : countries})
+})
+
 router.post('/', async (req,res) => {
     const country = new Country({
         cases: req.body.cases,

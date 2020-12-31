@@ -10,6 +10,7 @@
 </head>
 <body>
   <h1> Login </h1>
+  
 <%- include ('./partials/messages') %>
 <form action="/users/login" method="POST">
 <div>
@@ -34,7 +35,7 @@ placeholder="Enter Email"
   
 </div>
 <button type="submit" class="btn btn-primary btn-block m-md-2 ">Login</button>
-   
+<a href="/users/register"><button class="btn btn-primary">Register</button></a>
 </form>
 </body>
 </html>
